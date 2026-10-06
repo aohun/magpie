@@ -1,0 +1,14 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#879 界面预览 · 69d2dd7</title>
+<style>:root{color-scheme:light dark;--bg:#f6f6f7;--fg:#1d1d1f;--muted:#6e6e73;--card:#fff;--line:#e5e5ea}
+@media (prefers-color-scheme:dark){:root{--bg:#111113;--fg:#f2f2f4;--muted:#9a9aa0;--card:#1c1c1f;--line:#2c2c30}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,"Segoe UI","PingFang SC","Noto Sans CJK SC",sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}h1{font-size:20px;margin:0 0 4px}.m{color:var(--muted);font-size:13px;margin:0 0 20px}
+video,img{display:block;width:100%;border-radius:10px;border:1px solid var(--line);background:var(--card)}figure{margin:0 0 28px}figcaption{color:var(--muted);font-size:13px;margin-top:8px}
+a{color:inherit}</style>
+<main><h1>#879 界面预览</h1><p class="m">commit 69d2dd7 · <a href="https://github.com/yetone/magpie/pull/879">回到 PR</a> · 供应商页新增「本地配置发现」提示：扫描 Alma / CC Switch / Claude Code / Codex 的可导入配置，无供应商时显示带数量与来源应用的醒目提示，已有供应商时在「＋ 添加供应商」旁显示紧凑的「导入本地配置（n）…」链接；点「忽略」把配置指纹写进 localStorage 并在重开窗口后继续隐藏。自动发现只取应用名与指纹，并让既有的导入清单默认只勾选被发现的配置。</p>
+<figure><video src="preview.mp4" controls autoplay muted playsinline poster="poster.png"></video><figcaption>红线是鼠标走过的轨迹，红色圆环是一次点击；底部文字是这一步在做什么。空格暂停，← → 逐段查看。</figcaption></figure>
+<figure><img src="01-providers-page.png" alt="供应商页：目前只有 DeepSeek，列表下方是「＋ 添加供应商」一行——本地配置被发现时，紧凑的导入入口出现在这一行"><figcaption>供应商页：本地配置发现出现的位置 · 供应商页：目前只有 DeepSeek，列表下方是「＋ 添加供应商」一行——本地配置被发现时，紧凑的导入入口出现在这一行</figcaption></figure>
+<figure><img src="02-add-provider-sheet.png" alt="面板里的「导入…」入口"><figcaption>供应商页：本地配置发现出现的位置 · 面板里的「导入…」入口</figcaption></figure>
+<figure><img src="03-import-picker.png" alt="自动发现找到本地配置时打开的就是这个对话框，这些行就是被默认勾选的对象"><figcaption>供应商页：本地配置发现出现的位置 · 自动发现找到本地配置时打开的就是这个对话框，这些行就是被默认勾选的对象</figcaption></figure>
+</main></html>

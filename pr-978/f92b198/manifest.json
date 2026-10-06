@@ -1,0 +1,44 @@
+{
+  "summary": "本 PR 让原生用量窗口在窄宽度下头部不再把「立即重新读取」和合计拆到不同行、会话 chip 与六个 KPI 小字不再被裁切、图表日期不再挤在一起，并修好周期高亮：重绘时从当前可见位置续接、换行时只盖住选中那一行、resize 或从别的页返回后重新对齐。托盘（面板）的周期按钮在响应重绘时保持不换，按下期间的点击不再丢失。",
+  "scenes": [
+    {
+      "title": "用量页的周期高亮与刷新控件",
+      "shots": [
+        {
+          "file": "01-usage-head-before.png",
+          "caption": "用量页顶部：周期选择、「立即重新读取」与合计",
+          "width": 2560
+        },
+        {
+          "file": "02-usage-period-7d.png",
+          "caption": "点「7 天」之后的周期高亮与合计",
+          "width": 2560
+        }
+      ]
+    },
+    {
+      "title": "面板用量的周期按钮",
+      "shots": [
+        {
+          "file": "03-panel-usage-before.png",
+          "caption": "面板「用量」：周期按钮、立即重新读取与合计",
+          "width": 2560
+        },
+        {
+          "file": "04-panel-usage-7d.png",
+          "caption": "切到「7 天」后的周期按钮与合计",
+          "width": 2560
+        }
+      ]
+    }
+  ],
+  "video": "preview.mp4",
+  "poster": "poster.png",
+  "errors": [],
+  "leak": false,
+  "skipped": null,
+  "mismatch": "",
+  "unseen": "窄窗口布局只对原生窗口生效（CSS 全部限定为 body.window:not(.web)，且 ≤1080px 才触发）：头部换行、Agent chip 与图表指标换行、六个 KPI 变三列、图表日期避让、日历重排、resize 后高亮归位——预览是 1280px 的浏览器页（body.window.web），这些规则一律不触发。另外「周期高亮不弹回」是逐帧动画过程，面板周期按钮「按下期间收到响应仍算点击」也发生在按下与释放之间，静态截图看不出。沙盒只跑过网关请求、没有本地会话记录，用量 ›「会话」里的 chip / KPI / 图表日期可能没有内容可看。",
+  "interactive": true,
+  "pages": 2
+}

@@ -1,0 +1,17 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#948 界面预览 · 47d86aa</title>
+<style>:root{color-scheme:light dark;--bg:#f6f6f7;--fg:#1d1d1f;--muted:#6e6e73;--card:#fff;--line:#e5e5ea}
+@media (prefers-color-scheme:dark){:root{--bg:#111113;--fg:#f2f2f4;--muted:#9a9aa0;--card:#1c1c1f;--line:#2c2c30}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,"Segoe UI","PingFang SC","Noto Sans CJK SC",sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}h1{font-size:20px;margin:0 0 4px}.m{color:var(--muted);font-size:13px;margin:0 0 20px}
+video,img{display:block;width:100%;border-radius:10px;border:1px solid var(--line);background:var(--card)}figure{margin:0 0 28px}figcaption{color:var(--muted);font-size:13px;margin-top:8px}
+a{color:inherit}</style>
+<main><h1>#948 界面预览</h1><p class="m">commit 47d86aa · <a href="https://github.com/yetone/magpie/pull/948">回到 PR</a> · 「用量 › 请求」页顶部新增一行三个可点击的来源格子（全部请求 / 经过 magpie / 不经过 magpie），点选即按来源筛选请求列表；请求表的「供应商 · 账号」列会显示会话文件里记录的供应商标识并配新的徽章提示；同时修好了打开「用量」时请求存档开关不显示的问题，速度图的柱子改用 --pill 绘制、并为高出柱子的色块加了引导线。</p>
+<figure><video src="preview.mp4" controls autoplay muted playsinline poster="poster.png"></video><figcaption>红线是鼠标走过的轨迹，红色圆环是一次点击；底部文字是这一步在做什么。空格暂停，← → 逐段查看。</figcaption></figure>
+<figure><img src="01-requests-open.png" alt="「用量 › 请求」打开后的页面：页顶的格子与请求表格"><figcaption>请求页的来源筛选 · 「用量 › 请求」打开后的页面：页顶的格子与请求表格</figcaption></figure>
+<figure><img src="02-requests-through.png" alt="点击「经过 magpie」后的请求列表"><figcaption>请求页的来源筛选 · 点击「经过 magpie」后的请求列表</figcaption></figure>
+<figure><img src="03-requests-direct.png" alt="点击「不经过 magpie」后的请求列表"><figcaption>请求页的来源筛选 · 点击「不经过 magpie」后的请求列表</figcaption></figure>
+<figure><img src="04-requests-all.png" alt="点击「全部请求」后的请求列表"><figcaption>请求页的来源筛选 · 点击「全部请求」后的请求列表</figcaption></figure>
+<figure><img src="05-requests-archive-switch.png" alt="总数行右侧的开关，打开「用量」直接进到这一页时的样子"><figcaption>请求页顶部的存档开关与表格 · 总数行右侧的开关，打开「用量」直接进到这一页时的样子</figcaption></figure>
+<figure><img src="06-requests-table.png" alt="「请求」表格的各列"><figcaption>请求页顶部的存档开关与表格 · 「请求」表格的各列</figcaption></figure>
+</main></html>

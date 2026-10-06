@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>#978 界面预览 · f92b198</title>
+<style>:root{color-scheme:light dark;--bg:#f6f6f7;--fg:#1d1d1f;--muted:#6e6e73;--card:#fff;--line:#e5e5ea}
+@media (prefers-color-scheme:dark){:root{--bg:#111113;--fg:#f2f2f4;--muted:#9a9aa0;--card:#1c1c1f;--line:#2c2c30}}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,"Segoe UI","PingFang SC","Noto Sans CJK SC",sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 16px 60px}h1{font-size:20px;margin:0 0 4px}.m{color:var(--muted);font-size:13px;margin:0 0 20px}
+video,img{display:block;width:100%;border-radius:10px;border:1px solid var(--line);background:var(--card)}figure{margin:0 0 28px}figcaption{color:var(--muted);font-size:13px;margin-top:8px}
+a{color:inherit}</style>
+<main><h1>#978 界面预览</h1><p class="m">commit f92b198 · <a href="https://github.com/yetone/magpie/pull/978">回到 PR</a> · 本 PR 让原生用量窗口在窄宽度下头部不再把「立即重新读取」和合计拆到不同行、会话 chip 与六个 KPI 小字不再被裁切、图表日期不再挤在一起，并修好周期高亮：重绘时从当前可见位置续接、换行时只盖住选中那一行、resize 或从别的页返回后重新对齐。托盘（面板）的周期按钮在响应重绘时保持不换，按下期间的点击不再丢失。</p>
+<figure><video src="preview.mp4" controls autoplay muted playsinline poster="poster.png"></video><figcaption>红线是鼠标走过的轨迹，红色圆环是一次点击；底部文字是这一步在做什么。空格暂停，← → 逐段查看。</figcaption></figure>
+<figure><img src="01-usage-head-before.png" alt="用量页顶部：周期选择、「立即重新读取」与合计"><figcaption>用量页的周期高亮与刷新控件 · 用量页顶部：周期选择、「立即重新读取」与合计</figcaption></figure>
+<figure><img src="02-usage-period-7d.png" alt="点「7 天」之后的周期高亮与合计"><figcaption>用量页的周期高亮与刷新控件 · 点「7 天」之后的周期高亮与合计</figcaption></figure>
+<figure><img src="03-panel-usage-before.png" alt="面板「用量」：周期按钮、立即重新读取与合计"><figcaption>面板用量的周期按钮 · 面板「用量」：周期按钮、立即重新读取与合计</figcaption></figure>
+<figure><img src="04-panel-usage-7d.png" alt="切到「7 天」后的周期按钮与合计"><figcaption>面板用量的周期按钮 · 切到「7 天」后的周期按钮与合计</figcaption></figure>
+</main></html>

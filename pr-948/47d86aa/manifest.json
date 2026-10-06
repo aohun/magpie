@@ -1,0 +1,54 @@
+{
+  "summary": "「用量 › 请求」页顶部新增一行三个可点击的来源格子（全部请求 / 经过 magpie / 不经过 magpie），点选即按来源筛选请求列表；请求表的「供应商 · 账号」列会显示会话文件里记录的供应商标识并配新的徽章提示；同时修好了打开「用量」时请求存档开关不显示的问题，速度图的柱子改用 --pill 绘制、并为高出柱子的色块加了引导线。",
+  "scenes": [
+    {
+      "title": "请求页的来源筛选",
+      "shots": [
+        {
+          "file": "01-requests-open.png",
+          "caption": "「用量 › 请求」打开后的页面：页顶的格子与请求表格",
+          "width": 2560
+        },
+        {
+          "file": "02-requests-through.png",
+          "caption": "点击「经过 magpie」后的请求列表",
+          "width": 2560
+        },
+        {
+          "file": "03-requests-direct.png",
+          "caption": "点击「不经过 magpie」后的请求列表",
+          "width": 2560
+        },
+        {
+          "file": "04-requests-all.png",
+          "caption": "点击「全部请求」后的请求列表",
+          "width": 2560
+        }
+      ]
+    },
+    {
+      "title": "请求页顶部的存档开关与表格",
+      "shots": [
+        {
+          "file": "05-requests-archive-switch.png",
+          "caption": "总数行右侧的开关，打开「用量」直接进到这一页时的样子",
+          "width": 1120
+        },
+        {
+          "file": "06-requests-table.png",
+          "caption": "「请求」表格的各列",
+          "width": 2560
+        }
+      ]
+    }
+  ],
+  "video": "preview.mp4",
+  "poster": "poster.png",
+  "errors": [],
+  "leak": false,
+  "skipped": null,
+  "mismatch": "",
+  "unseen": "沙箱里 Agent 都是新装的、只有 DeepSeek 一个供应商，没有会话文件可读：所以「不经过 magpie」的来源格子（大概率是 0）与表格里的会话文件行——「供应商 · 账号」列显示文件记录的 provider id、徽章新提示、以及「实际模型」黄标的修正——都没有数据可显示；换模型误判（-sg / free / fp8 / 部署后缀等）同样需要那些会话行。速度图超出柱子的色块与引导线需要某天单个模型比该时间点的整体速度更快，这里只有今天 3 次调用、单一供应商。会话列表 200 条截断的修复则要单个 Agent 超过 200 个会话才看得出。",
+  "interactive": true,
+  "pages": 1
+}
