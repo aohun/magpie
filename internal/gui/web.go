@@ -94,6 +94,7 @@ func StartWeb(addr, version string) (*Web, error) {
 	go w.srv.Serve(ln)
 	updates.start()
 	news.start()
+	resets.start()
 	return w, nil
 }
 

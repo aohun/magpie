@@ -1,3 +1,9 @@
+> [!IMPORTANT]
+> **本项目是 [yetone/magpie](https://github.com/yetone/magpie) 的二次开发版本（fork）**，不是官方发布。上游 magpie 的全部功能在这里都可用，并额外增加了下面的新功能。官方项目、下载与文档请前往 [usemagpie.ai](https://usemagpie.ai)。
+>
+> **本 fork 的新功能**
+> - **Codex 重置提醒** — 登录 Codex 账号期间，每 5 分钟检查一次 [codex-resets.com](https://codex-resets.com)，OpenAI 一公告 Codex 限额重置就在软件内弹出提醒（Settings › 通知；dev 构建里有"测试"按钮，点击立即拉取）。
+
 <div align="center">
 
 <a href="https://usemagpie.ai/zh/"><img src="site/public/img/icon-256.png" width="120" alt="magpie"></a>

@@ -136,6 +136,9 @@ func devListen(h http.Handler) {
 // devUI is the page served on MAGPIE_DEV_UI, nil when it isn't.
 var devUI *http.Server
 
+// devUIOn is whether this dev build serves the UI over plain HTTP.
+func devUIOn() bool { return devUI != nil }
+
 // devRole is this process's half of `make dev`: "backend", "shell", or ""
 // for the whole app in one process.
 func devRole() string { return os.Getenv("MAGPIE_DEV_ROLE") }

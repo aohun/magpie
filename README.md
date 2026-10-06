@@ -1,3 +1,9 @@
+> [!IMPORTANT]
+> **This is a fork of [yetone/magpie](https://github.com/yetone/magpie)** — a second-development build on top of magpie, not the official release. Everything from upstream works here, plus the features below. For the official project, downloads and docs, go to [usemagpie.ai](https://usemagpie.ai).
+>
+> **New in this fork**
+> - **Codex reset alerts** — while a Codex account is signed in, magpie checks [codex-resets.com](https://codex-resets.com) every five minutes and pops up a dialog as soon as OpenAI announces a rate-limit reset (Settings › Notifications; a Test button in dev builds asks the site at once).
+
 <div align="center">
 
 <a href="https://usemagpie.ai"><img src="site/public/img/icon-256.png" width="120" alt="magpie"></a>

@@ -8,6 +8,8 @@ if (mode === "panel") $("header.top").style.setProperty("--wails-draggable", "no
 // `magpie web`: the page in a browser tab, with no window of the app's
 // around it — it opens links itself, and what is the desktop's is left out
 const web = !!window.bootPrefs?.web;
+// a dev build (`make dev`): the trial buttons a shipped app leaves out
+const dev = !!window.bootPrefs?.dev;
 // layout.js applies the mode and platform before the header can paint.
 // Gateway mode (gatewaymode.go): magpie web on a server that is only the
 // gateway for other computers' agents leaves out this computer's agents'
@@ -2911,6 +2913,7 @@ async function load() {
   renderUpdateBadge();
   cliBehindOnce();
   whatsNewOnce();
+  resetNewsOnce();
 }
 
 // installFrom is what a restart to update tells the app: the window's tab,
@@ -3304,6 +3307,50 @@ async function confirmUpdate(u, go) {
   if (w?.latest && w.latest !== u.latest) title.textContent = t("Update to {v}", { v: "v" + w.latest });
   if (w?.releases?.length) draw(w.releases);
 }
+
+// ---------- codex resets ----------
+
+// resetNewsOnce tells of a Codex rate-limit reset: the backend asks
+// codex-resets.com every five minutes while a Codex account is signed in,
+// and one newer than the last announced comes up here, much as What's new
+// does. The backend says show once per reset; this asks on load and every
+// minute after, so an announcement comes up without a focus.
+async function resetNewsOnce() {
+  if (mode === "panel" || document.hidden || !$("#modal").hidden) return;
+  const w = await api("resetnews").catch(() => null);
+  if (!w?.show || !w.reset || !$("#modal").hidden) return;
+  showResetNews(w.reset);
+  api("resetnews/seen", {}).catch(() => {});
+}
+
+// showResetNews opens the dialog: the announcement's own words (markdown,
+// drawn as What's new draws its notes), when it was announced, the post it
+// came from, and the site's credit, which its API asks for.
+function showResetNews(r) {
+  const ed = el("div", "editor whatsnew");
+  const head = el("div", "ehead");
+  head.append(el("b", "", t("Codex reset")));
+  ed.append(head);
+  const sec = el("section", "wn-rel");
+  const when = r.announced ? new Date(r.announced).toLocaleString() : "";
+  const meta = [r.type === "banked" ? t("Banked reset") : r.type === "regular" ? t("Regular reset") : "", when].filter(Boolean).join(" · ");
+  if (meta) sec.append(el("div", "wn-ver", meta));
+  sec.append(noteBlocks(r.text || ""));
+  ed.append(sec);
+  const bar = el("div", "bar");
+  if (r.url) bar.append(noteLink(t("View announcement"), r.url), el("span", "", " · "));
+  bar.append(noteLink(t("Data from Codex Resets"), "https://codex-resets.com"), el("span", "grow"));
+  const ok = el("button", "text primary", t("Close"));
+  ok.onclick = (e) => { e.stopPropagation(); closeConfirmAsk(); };
+  bar.append(ok);
+  ed.append(bar);
+  confirmAsk = ed;
+  openModal(ed);
+  $("#modal").classList.add("lib");
+  ok.focus({ preventScroll: true });
+}
+setInterval(resetNewsOnce, 60 * 1000);
+
 
 // ---------- picker ----------
 
@@ -16794,7 +16841,7 @@ function tabKeys(tabs, sel) {
 // A part with no row to show here (every one hidden on this system) has no
 // tab. A click on a tab, like every click, leaves the page where it is: the
 // tabs at the top stay where they were and the part comes in under them.
-const SET_TABS = ["general", "usage", "network", "models", "privacy", "otel", "sync", "about"];
+const SET_TABS = ["general", "usage", "network", "models", "privacy", "otel", "sync", "notify", "about"];
 let setTab = "general";
 try { const k = localStorage.getItem("magpie.settingsTab"); if (SET_TABS.includes(k)) setTab = k; } catch {}
 let setShown = setTab; // the part shown: the one picked, or the first there
@@ -17061,6 +17108,7 @@ function renderSettings() {
   renderPort(s);
   renderLAN(s);
   renderSync();
+  renderNotify(s, keep);
 
   const about = $("#about");
   about.replaceChildren();
@@ -17152,6 +17200,41 @@ function renderGatewayMode(s) {
     "no-agents": t("Now on: no agents on this computer"),
   }[s.gatewayWhy] || t("Now off: agents found on this computer");
   $("#gatewayModeSub").textContent = [t("Only what a gateway for other computers needs: no Agents, Sessions or Library, nor this computer's agents' settings"), now].filter(Boolean).join(" · ");
+}
+
+// renderNotify: the Settings page's notifications — what magpie may pop up
+// about besides its own updates. Codex's resets, announced on X and tracked
+// by codex-resets.com: asked every five minutes while a Codex account is
+// signed in, one newer than the last announced pops up once.
+function renderNotify(s, keep) {
+  $("#notify").replaceChildren();
+  const row = (name, sub, ...tools) => {
+    const r = el("div", "row pref");
+    const who = el("div", "who");
+    who.append(el("div", "name", name));
+    if (sub) who.append(el("div", "sub", sub));
+    const val = el("div", "val");
+    val.append(...tools);
+    r.append(who, val);
+    $("#notify").append(r);
+    return r;
+  };
+  // a dev build's Test button: the site asked at once, what it has drawn
+  // as the dialog would be
+  const tools = [segs([["off", t("Off")], ["on", t("On")]], s.noResetAlert ? "off" : "on", (v) => savePrefs({ ...keep, noResetAlert: v === "off" }))];
+  if (dev) {
+    const tryBtn = el("button", "text", t("Test"));
+    tryBtn.onclick = async (e) => {
+      e.stopPropagation();
+      tryBtn.classList.add("busy");
+      const r = await api("resetnews/test", {}).catch((err) => ({ error: err.message }));
+      tryBtn.classList.remove("busy");
+      if (r.error) return status(r.error, "err");
+      showResetNews(r);
+    };
+    tools.unshift(tryBtn);
+  }
+  row(t("Codex reset alerts"), t("Pops up when OpenAI announces a Codex rate-limit reset, while a Codex account is signed in"), ...tools);
 }
 
 function renderSessionTerminal(s, keep) {
@@ -18703,7 +18786,7 @@ function prefsKeep(s) {
     redact: !!s.redact, redactPersonal: !!s.redactPersonal, redactWords: s.redactWords || [], codexWarmup: s.codexWarmup || "",
     claudeWarmup: s.claudeWarmup || "", codexWarmAt: s.codexWarmAt || "", claudeWarmAt: s.claudeWarmAt || "", workbuddyCheckin: !!s.workbuddyCheckin, traeCheckin: !!s.traeCheckin, minimaxCheckin: !!s.minimaxCheckin, qoderCheckin: !!s.qoderCheckin, noStats: !!s.noStats,
     memberModel: !!s.memberModel,
-    noUpdatePill: !!s.noUpdatePill, noAutoUpdate: !!s.noAutoUpdate, updateEvery: s.updateEvery || 360,
+    noUpdatePill: !!s.noUpdatePill, noAutoUpdate: !!s.noAutoUpdate, updateEvery: s.updateEvery || 360, noResetAlert: !!s.noResetAlert,
     trayUsage: s.trayUsage || "", trayUsageEvery: s.trayUsageEvery || 3, trayNoLogos: !!s.trayNoLogos, trayNoBird: !!s.trayNoBird, vision: s.vision || "", imageGen: s.imageGen || "", searcher: s.searcher || "", searchFirst: s.searchFirst || "", currency: s.currency || "usd",
     chineseUnits: !!s.chineseUnits, usageAlert: s.usageAlert || 0, balanceAlert: s.balanceAlert || 0, resetReminder: s.resetReminder || 0 };
 }

@@ -640,7 +640,7 @@ func Handler(w Windows, gw *gateway.Server) http.Handler {
 		s := settings.Load()
 		// and the text size, which the Mac's header measures against the
 		// traffic lights
-		boot := map[string]any{"lang": s.Lang, "theme": s.Theme, "textSize": s.TextSize, "web": isWeb(w)}
+		boot := map[string]any{"lang": s.Lang, "theme": s.Theme, "textSize": s.TextSize, "web": isWeb(w), "dev": devUIOn()}
 		// and whether it is a gateway's page alone (gatewaymode.go), so the
 		// pages left out never show
 		if on, _ := gatewayMode(isWeb(w)); on {
@@ -935,6 +935,7 @@ func Handler(w Windows, gw *gateway.Server) http.Handler {
 	libraryRoutes(mux, w)
 	updateRoutes(mux, w)
 	whatsNewRoutes(mux)
+	resetNewsRoutes(mux)
 	cliBehindRoutes(mux)
 	gatewayFixRoutes(mux)
 	gatewayModeRoutes(mux)

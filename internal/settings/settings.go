@@ -174,6 +174,10 @@ type Settings struct {
 	// checked against the SHA-256 the update feed at usemagpie.ai gives,
 	// never one from the mirror. magpie update mirror sets it.
 	UpdateMirror string `json:"updateMirror,omitempty"`
+	// NoResetAlert keeps magpie from asking codex-resets.com for OpenAI's
+	// Codex rate-limit resets, and so from announcing one in a dialog while
+	// a Codex account is signed in.
+	NoResetAlert bool `json:"noResetAlert,omitempty"`
 	// Vision is the model that describes an image to a model that can't see
 	// it: a model's id (provider/model, group/<id>), "off" to turn such an
 	// image away, or empty for one magpie picks (see gateway.seer).
